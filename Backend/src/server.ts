@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { env } from './config/env';
 import { checkDatabaseConnection } from './config/database';
 import { validateToken } from './middleware/auth';
+import ticketRoutes from './routes/ticket.routes';
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.get('/api/private', validateToken, (req, res) => {
     user: req.user
   });
 });
+
+app.use('/api/tickets', ticketRoutes);
 
 const startServer = async () => {
   await checkDatabaseConnection();
